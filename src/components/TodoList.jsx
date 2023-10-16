@@ -31,7 +31,6 @@ function TodoList({todoList,deleteItem}) {
     {todoList?.length > 0 ? (
     <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
       {todoList.map((todo) => {
-        const labelId = `${todo}`;
 
         return (
           <ListItem
@@ -50,10 +49,10 @@ function TodoList({todoList,deleteItem}) {
                   checked={checked.indexOf(todo) !== -1}
                   tabIndex={-1}
                   disableRipple
-                  inputProps={{ 'aria-labelledby': labelId }}
+                  inputProps={{ 'aria-labelledby': todo }}
                 />
               </ListItemIcon>
-              <ListItemText id={labelId} primary={`${todo}`} />
+              <ListItemText sx={checked.includes(todo)?{textDecoration: 'line-through'}:{textDecoration: 'none'}} id={todo} primary={`${todo}`} />
             </ListItemButton>
           </ListItem>
         );

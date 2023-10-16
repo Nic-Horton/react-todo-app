@@ -1,14 +1,28 @@
 import './App.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AddTodo from './components/Addtodo';
 import TodoList from './components/TodoList';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
 function App() {
-	const [todoList, setTodoList] = useState([]);
+	// sets todoList to either get what is in local storage if anything is there or an empty array when initialized
+	const [todoList, setTodoList] = useState(() => {
+		const savedTodoList = localStorage.getItem('todoList');
+		if (savedTodoList) {
+			return JSON.parse(savedTodoList);
+		} else {
+			return [];
+		}
+	});
 	const [todo, setTodo] = useState('');
 
+	//useEffect is used to set local storage to update when todoList is changed
+	useEffect(() => {
+		localStorage.setItem('todoList', JSON.stringify(todoList));
+	}, [todoList]);
+
+	//add item to list and check if it already exists
 	const addItem = (e) => {
 		e.preventDefault();
 		const existingTodo = todoList.find((item) => item === todo);

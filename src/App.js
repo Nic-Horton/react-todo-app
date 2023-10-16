@@ -11,8 +11,14 @@ function App() {
 
 	const addItem = (e) => {
 		e.preventDefault();
-		e.target.todo.input = '';
-		setTodoList([...todoList, todo]);
+		const existingTodo = todoList.find((item) => item === todo);
+		if (existingTodo) {
+			alert('Todo already exists');
+			setTodo('');
+		} else {
+			setTodoList([...todoList, todo]);
+			setTodo('');
+		}
 	};
 
 	const deleteItem = (item) => {

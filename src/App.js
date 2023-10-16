@@ -4,6 +4,19 @@ import AddTodo from './components/Addtodo';
 import TodoList from './components/TodoList';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+
+const darkTheme = createTheme({
+	palette: {
+		mode: 'dark',
+		primary: {
+			main: '#FF5733',
+		},
+		secondary: {
+			main: '#33daff',
+		},
+	},
+});
 
 function App() {
 	// sets todoList to either get what is in local storage if anything is there or an empty array when initialized
@@ -36,31 +49,43 @@ function App() {
 	};
 
 	const deleteItem = (item) => {
-		const newTodos = todoList.filter((todo) => {
+		const newTodoList = todoList.filter((todo) => {
 			return todo !== item;
 		});
-		setTodoList(newTodos);
+		setTodoList(newTodoList);
 	};
 
 	return (
-		<Box
-			sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
-		>
-			<Typography
-				component="h2"
-				variant="h2"
-				color="inherit"
-				align="center"
-				noWrap
-				sx={{ flex: 1 }}
-				mt={3}
-				mb={3}
+		<ThemeProvider theme={darkTheme}>
+			<Box
+				sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
 			>
-				Todo App
-			</Typography>
-			<AddTodo todo={todo} setTodo={setTodo} addItem={addItem} />
-			<TodoList todoList={todoList} deleteItem={deleteItem} />
-		</Box>
+				<Typography
+					component="h2"
+					variant="h2"
+					color="primary.main"
+					align="center"
+					noWrap
+					sx={{
+						flex: 1,
+						fontFamily: 'monospace',
+						fontWeight: 500,
+						border: 'dotted',
+						borderColor: 'primary.light',
+						borderRadius: '10px',
+						borderRightColor: 'secondary.main',
+						borderLeftColor: 'secondary.main',
+					}}
+					p={2}
+					mt={6}
+					mb={3}
+				>
+					Todo App
+				</Typography>
+				<AddTodo todo={todo} setTodo={setTodo} addItem={addItem} />
+				<TodoList todoList={todoList} deleteItem={deleteItem} />
+			</Box>
+		</ThemeProvider>
 	);
 }
 

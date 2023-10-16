@@ -29,14 +29,14 @@ function TodoList({todoList,deleteItem}) {
   return (
     <>
     {todoList?.length > 0 ? (
-    <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+    <List sx={{ width: '100%', maxWidth: 380 }}>
       {todoList.map((todo) => {
 
         return (
           <ListItem
             key={todo}
             secondaryAction={
-              <IconButton edge="end" aria-label="comments" onClick={() => {deleteItem(todo);}}>
+              <IconButton color='secondary' edge="end" aria-label="comments" onClick={() => {deleteItem(todo);}}>
                 <DeleteIcon />
               </IconButton>
             }
@@ -52,14 +52,16 @@ function TodoList({todoList,deleteItem}) {
                   inputProps={{ 'aria-labelledby': todo }}
                 />
               </ListItemIcon>
-              <ListItemText sx={checked.includes(todo)?{textDecoration: 'line-through'}:{textDecoration: 'none'}} id={todo} primary={`${todo}`} />
+              <ListItemText sx={checked.includes(todo)?{textDecoration: 'line-through', color:'primary.main'}:{textDecoration: 'none'}}
+                primaryTypographyProps={{fontSize: 18}}  
+                id={todo} primary={`${todo}`} />
             </ListItemButton>
           </ListItem>
         );
       })}
     </List>
   ) : (
-    <Typography variant="subtitle1">Currently no Todos</Typography>
+    <Typography fontFamily='monospace' variant="subtitle1">Currently No Todos</Typography>
   )}
   </>
   );
